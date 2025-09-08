@@ -6,33 +6,27 @@
     <title>Catálogo - Level-Up Gamer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .product-card {
-            transition: transform 0.3s;
-            height: 100%;
-        }
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-        .hidden {
-            display: none;
-        }
-        .category-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-        .product-image {
-            height: 200px;
-            object-fit: cover;
-        }
-    </style>
+    <!-- Estilos movidos a style.css -->
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand logo" href="index.html">Level-up Store</a>
-            <a href="index.html" class="btn btn-outline-light">Volver al Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalogo.html">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="comunidad.html">Comunidad</a></li>
+                    <li class="nav-item"><a class="nav-link" href="soporte.html">Soporte</a></li>
+                    <li class="nav-item" id="nav-user-action">
+                            <a class="btn btn-outline-light me-2" href="perfil.html">Perfil</a>
+                            <button class="btn btn-danger me-2" id="logoutBtn">Cerrar sesión</button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -56,6 +50,8 @@
                         <option value="mouse">Mouse</option>
                         <option value="mousepad">Mousepad</option>
                         <option value="poleras">Poleras Personalizadas</option>
+                        <option value="polerones">Polerones Gamers Personalizados</option>
+                        <option value="servicio">Servicio Técnico</option>
                     </select>
                 </div>
                 <div class="col-md-3 mb-2">
@@ -68,10 +64,40 @@
                     </select>
                 </div>
             </div>
-        </div>
+    </div>
 
         <div id="noResults" class="alert alert-warning text-center hidden">
             No se encontraron productos que coincidan con tu búsqueda.
+            <!-- Producto ejemplo: Polerón Gamer Personalizado -->
+            <div class="col-md-4 mb-4 product-card" data-category="polerones" data-price="24990" data-name="poleron gamer personalizado">
+                <div class="card h-100 text-white">
+                    <span class="badge bg-info category-badge">Polerón</span>
+                    <img src="https://via.placeholder.com/300x200/222/39FF14?text=Polerón+Gamer" class="card-img-top product-image" alt="Polerón Gamer" id="img-poleron">
+                    <div class="card-body">
+                        <h5>Polerón Gamer Personalizado</h5>
+                        <p class="text-success">$24.990 CLP</p>
+                        <p class="small text-light">Polerón personalizable con tu nombre o diseño favorito. (Agrega tu imagen aquí)</p>
+                        <button class="btn btn-primary agregar-carrito">Agregar al carrito</button>
+                        <div class="mt-3">
+                            <div class="reviews-container"></div>
+                            <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Producto ejemplo: Servicio Técnico -->
+            <div class="col-md-4 mb-4 product-card" data-category="servicio" data-price="0" data-name="servicio tecnico">
+                <div class="card h-100 text-white">
+                    <span class="badge bg-dark category-badge">Servicio Técnico</span>
+                    <img src="https://via.placeholder.com/300x200/222/1E90FF?text=Servicio+Técnico" class="card-img-top product-image" alt="Servicio Técnico">
+                    <div class="card-body">
+                        <h5>Servicio Técnico Gamer</h5>
+                        <p class="text-success">Desde $9.990 CLP</p>
+                        <p class="small text-light">Reparación y mantención de consolas, PCs y accesorios gamers.</p>
+                        <button class="btn btn-primary">Solicitar servicio</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row" id="productsContainer">
@@ -82,8 +108,12 @@
                     <div class="card-body">
                         <h5>Catan</h5>
                         <p class="text-success">$29.990 CLP</p>
-                        <p class="small">Juego de estrategia para 3-4 jugadores. Perfecto para noches de juego.</p>
+                        <p class="small text-light">Juego de estrategia para 3-4 jugadores. Perfecto para noches de juego.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
+                        <div class="mt-3">
+                            <div class="reviews-container"></div>
+                            <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -95,8 +125,12 @@
                     <div class="card-body">
                         <h5>Carcassonne</h5>
                         <p class="text-success">$24.990 CLP</p>
-                        <p class="small">Juego de colocación de fichas para 2-5 jugadores. Fácil de aprender.</p>
+                        <p class="small text-light">Juego de colocación de fichas para 2-5 jugadores. Fácil de aprender.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
+                        <div class="mt-3">
+                            <div class="reviews-container"></div>
+                            <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -108,8 +142,12 @@
                     <div class="card-body">
                         <h5>Controlador Xbox Series X</h5>
                         <p class="text-success">$59.990 CLP</p>
-                        <p class="small">Inalámbrico con botones mapeables y respuesta táctil mejorada.</p>
+                        <p class="small text-light">Inalámbrico con botones mapeables y respuesta táctil mejorada.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
+                        <div class="mt-3">
+                            <div class="reviews-container"></div>
+                            <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,8 +159,12 @@
                     <div class="card-body">
                         <h5>Auriculares HyperX Cloud II</h5>
                         <p class="text-success">$79.990 CLP</p>
-                        <p class="small">Sonido envolvente 7.1 con micrófono desmontable.</p>
+                        <p class="small text-light">Sonido envolvente 7.1 con micrófono desmontable.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
+                        <div class="mt-3">
+                            <div class="reviews-container"></div>
+                            <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -134,8 +176,12 @@
                     <div class="card-body">
                         <h5>PlayStation 5</h5>
                         <p class="text-success">$549.990 CLP</p>
-                        <p class="small">Consola de última generación con gráficos impresionantes.</p>
+                        <p class="small text-light">Consola de última generación con gráficos impresionantes.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
+                        <div class="mt-3">
+                            <div class="reviews-container"></div>
+                            <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,8 +193,12 @@
                     <div class="card-body">
                         <h5>PC Gamer ASUS ROG Strix</h5>
                         <p class="text-success">$1.299.990 CLP</p>
-                        <p class="small">Potente equipo para gamers exigentes con los últimos componentes.</p>
+                        <p class="small text-light">Potente equipo para gamers exigentes con los últimos componentes.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
+                        <div class="mt-3">
+                            <div class="reviews-container"></div>
+                            <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -160,8 +210,12 @@
                     <div class="card-body">
                         <h5>Silla Gamer SecretLab Titan</h5>
                         <p class="text-success">$349.990 CLP</p>
-                        <p class="small">Diseñada para máximo confort con soporte ergonómico ajustable.</p>
+                        <p class="small text-light">Diseñada para máximo confort con soporte ergonómico ajustable.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
+                        <div class="mt-3">
+                            <div class="reviews-container"></div>
+                            <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -173,8 +227,12 @@
                     <div class="card-body">
                         <h5>Mouse Logitech G502 HERO</h5>
                         <p class="text-success">$49.990 CLP</p>
-                        <p class="small">Sensor de alta precisión con botones personalizables.</p>
+                        <p class="small text-light">Sensor de alta precisión con botones personalizables.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
+                        <div class="mt-3">
+                            <div class="reviews-container"></div>
+                            <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -186,7 +244,7 @@
                     <div class="card-body">
                         <h5>Mousepad Razer Goliathus</h5>
                         <p class="text-success">$29.990 CLP</p>
-                        <p class="small">Amplia superficie con iluminación RGB personalizable.</p>
+                        <p class="small text-light">Amplia superficie con iluminación RGB personalizable.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                     </div>
                 </div>
@@ -199,7 +257,7 @@
                     <div class="card-body">
                         <h5>Polera Gamer Level-Up</h5>
                         <p class="text-success">$14.990 CLP</p>
-                        <p class="small">Polera personalizable con tu gamer tag o diseño favorito.</p>
+                        <p class="small text-light">Polera personalizable con tu gamer tag o diseño favorito.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                     </div>
                 </div>
@@ -218,19 +276,14 @@
             const searchText = document.getElementById('searchInput').value.toLowerCase();
             const category = document.getElementById('categoryFilter').value;
             const priceRange = document.getElementById('priceFilter').value;
-            
             const products = document.querySelectorAll('.product-card');
             let visibleCount = 0;
-            
             products.forEach(product => {
                 const productName = product.getAttribute('data-name').toLowerCase();
                 const productCategory = product.getAttribute('data-category');
                 const productPrice = parseInt(product.getAttribute('data-price'));
-                
                 const matchesSearch = productName.includes(searchText);
-                
                 const matchesCategory = category === 'all' || productCategory === category;
-                
                 let matchesPrice = true;
                 if (priceRange !== 'all') {
                     if (priceRange === '0-30000') {
@@ -243,7 +296,6 @@
                         matchesPrice = productPrice > 500000;
                     }
                 }
-                
                 if (matchesSearch && matchesCategory && matchesPrice) {
                     product.classList.remove('hidden');
                     visibleCount++;
@@ -251,7 +303,6 @@
                     product.classList.add('hidden');
                 }
             });
-            
             const noResults = document.getElementById('noResults');
             if (visibleCount === 0) {
                 noResults.classList.remove('hidden');
@@ -259,12 +310,60 @@
                 noResults.classList.add('hidden');
             }
         }
-        
+        // Carrito: agregar producto y redirigir
+        function agregarAlCarrito(producto) {
+            let carrito = JSON.parse(localStorage.getItem('carritoLevelUp') || '[]');
+            const existente = carrito.find(p => p.name === producto.name);
+            if (existente) {
+                existente.qty += 1;
+            } else {
+                carrito.push({...producto, qty: 1});
+            }
+            localStorage.setItem('carritoLevelUp', JSON.stringify(carrito));
+            window.location.href = 'carrito.html';
+        }
         document.addEventListener('DOMContentLoaded', function() {
             filterProducts();
+            document.querySelectorAll('.agregar-carrito').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const card = btn.closest('.product-card');
+                    const producto = {
+                        name: card.querySelector('h5').innerText,
+                        price: parseInt(card.getAttribute('data-price')),
+                        category: card.getAttribute('data-category'),
+                        img: card.querySelector('img').src
+                    };
+                    agregarAlCarrito(producto);
+                });
+            });
         });
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const navUser = document.getElementById('nav-user-action');
+    const email = localStorage.getItem('usuarioActivoLevelUp');
+            if (navUser) {
+            if (email) {
+                navUser.innerHTML = `
+                    <a class="btn btn-outline-light me-2" href="perfil.html">Perfil</a>
+                    <button class="btn btn-danger me-2" id="logoutBtn">Cerrar sesión</button>
+                <a class="btn btn-success ms-2" href="logueo.html">Registro/Login</a>
+                `;
+                setTimeout(() => {
+                    const btn = document.getElementById('logoutBtn');
+                    if(btn) btn.onclick = function() {
+                        localStorage.removeItem('usuarioActivoLevelUp');
+                        window.location.reload();
+                    };
+                }, 100);
+            } else {
+                navUser.innerHTML = `<a class="btn btn-success ms-2" href="logueo.html">Login</a>`;
+            }
+        }
+});
+</script>
 </body>
 </html>

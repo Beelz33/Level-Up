@@ -6,12 +6,7 @@
     <title>Perfil - Level-Up Store</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto&display=swap" rel="stylesheet">
-    <style>
-        body { background-color: #000; color: #FFF; font-family: 'Roboto', sans-serif; }
-        .logo { font-family: 'Orbitron', sans-serif; color: #39FF14; }
-        .card { background-color: #1a1a1a; border: 1px solid #333; }
-        .level-badge { background-color: #39FF14; color: #000; padding: 5px 10px; border-radius: 20px; font-weight: bold; }
-    </style>
+    <!-- Estilos movidos a style.css -->
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -23,55 +18,60 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-4">
-                <div class="card p-3 text-center">
-                    <img src="https://via.placeholder.com/150/222222/39FF14?text=U" class="rounded-circle mx-auto mb-3" alt="Avatar">
-                    <h4>Juan Pérez</h4>
-                    <p>juan.perez@ejemplo.com</p>
-                    <div class="level-badge mx-auto">Nivel 3 - Explorer</div>
-                    <p class="mt-2">Puntos LevelUp: <strong>750</strong></p>
-                    <div class="progress mb-2">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <small>250 puntos para el siguiente nivel</small>
+                <div class="card p-3 text-center" id="perfilResumen">
+                    <!-- Aquí se cargan dinámicamente los datos del usuario -->
                 </div>
-                
-                <div class="card p-3 mt-3">
-                    <h5>Tu código de referido</h5>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control" value="LEVEL-1234" readonly>
-                        <button class="btn btn-outline-light" onclick="copiarCodigo()">Copiar</button>
-                    </div>
-                    <small>Comparte este código con amigos y gana 100 puntos por cada referido.</small>
+                <div class="card p-3 mt-3" id="perfilReferido">
+                    <!-- Aquí se carga dinámicamente el código de referido -->
+                </div>
+                <div class="card p-3 mt-3" id="perfilCanje">
+                    <!-- Aquí se carga dinámicamente la sección de canje -->
                 </div>
             </div>
             
             <div class="col-md-8">
                 <div class="card p-4">
                     <h4>Información personal</h4>
-                    <form>
+                    <form id="perfilForm">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="form-label">Nombre</label>
-                                <input type="text" class="form-control" value="Juan">
+                                <input type="text" class="form-control" id="nombrePerfil" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Apellido</label>
-                                <input type="text" class="form-control" value="Pérez">
+                                <input type="text" class="form-control" id="apellidoPerfil" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" value="juan.perez@ejemplo.com">
+                            <input type="email" class="form-control" id="correoPerfil" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Fecha de nacimiento</label>
-                            <input type="date" class="form-control" value="1990-05-15">
+                            <input type="date" class="form-control" id="nacimientoPerfil" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Teléfono</label>
-                            <input type="tel" class="form-control" value="+56 9 1234 5678">
+                            <input type="tel" class="form-control" id="telefonoPerfil">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Preferencias de compra</label>
+                            <select class="form-select" id="preferenciasPerfil" multiple>
+                                <option value="consolas">Consolas</option>
+                                <option value="computadores">Computadores</option>
+                                <option value="sillas">Sillas gamers</option>
+                                <option value="accesorios">Accesorios</option>
+                                <option value="juegos">Juegos de mesa</option>
+                            </select>
+                            <div class="form-text">Mantén presionada Ctrl (Windows) o Cmd (Mac) para seleccionar varias.</div>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="ofertasPerfil">
+                            <label class="form-check-label">Deseo recibir ofertas y novedades</label>
                         </div>
                         <button type="submit" class="btn btn-success">Guardar cambios</button>
+                        <div id="perfilMsg" class="mt-2"></div>
                     </form>
                 </div>
                 
@@ -101,10 +101,101 @@
     </div>
 
     <script>
-        function copiarCodigo() {
-            navigator.clipboard.writeText("LEVEL-1234");
-            alert('Código copiado al portapapeles');
+    // Mostrar resumen, código de referido y canje de puntos
+    function copiarCodigoRef(codigo) {
+        navigator.clipboard.writeText(codigo);
+        alert('Código copiado al portapapeles');
+    }
+    function calcularNivel(puntos) {
+        if(puntos >= 1000) return 5;
+        if(puntos >= 600) return 4;
+        if(puntos >= 300) return 3;
+        if(puntos >= 150) return 2;
+        return 1;
+    }
+    function nombreNivel(nivel) {
+        return ['Beginner','Bronze','Explorer','Silver','Gold','Platinum'][nivel] || 'Beginner';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener usuario activo
+        const email = localStorage.getItem('usuarioActivoLevelUp');
+        const usuarios = JSON.parse(localStorage.getItem('usuariosLevelUp') || '[]');
+        const user = usuarios.find(u => u.correo === email);
+        // Mostrar resumen
+        if(user) {
+            const nivel = calcularNivel(user.puntos||0);
+            const puntos = user.puntos||0;
+            const nextLevel = [0,150,300,600,1000,2000][nivel] || 0;
+            const falta = nextLevel > puntos ? nextLevel - puntos : 0;
+            const porc = Math.min(100, Math.round((puntos/(nextLevel||1))*100));
+            document.getElementById('perfilResumen').innerHTML = `
+                <img src='https://via.placeholder.com/150/222222/39FF14?text=U' class='rounded-circle mx-auto mb-3' alt='Avatar'>
+                <h4>${user.nombre}</h4>
+                <p>${user.correo}</p>
+                <div class='level-badge mx-auto'>Nivel ${nivel} - ${nombreNivel(nivel)}</div>
+                <p class='mt-2'>Puntos LevelUp: <strong>${puntos}</strong></p>
+                <div class='progress mb-2'><div class='progress-bar bg-success' role='progressbar' style='width: ${porc}%' aria-valuenow='${porc}' aria-valuemin='0' aria-valuemax='100'></div></div>
+                <small>${falta > 0 ? falta + ' puntos para el siguiente nivel' : '¡Nivel máximo alcanzado!'}</small>
+            `;
+            document.getElementById('perfilReferido').innerHTML = `
+                <h5>Tu código de referido</h5>
+                <div class='input-group mb-2'>
+                    <input type='text' class='form-control' value='${user.codigoRef}' readonly>
+                    <button class='btn btn-outline-light' onclick='copiarCodigoRef("${user.codigoRef}")'>Copiar</button>
+                </div>
+                <small>Comparte este código con amigos y gana 100 puntos por cada referido.</small>
+            `;
+            document.getElementById('perfilCanje').innerHTML = `
+                <h5>Canjea tus puntos LevelUp</h5>
+                <ul class='list-group mb-2'>
+                    <li class='list-group-item bg-dark text-white border-secondary'>100 pts: 5% de descuento en tu próxima compra <button class='btn btn-sm btn-success float-end' onclick='canjear(100,5)'>Canjear</button></li>
+                    <li class='list-group-item bg-dark text-white border-secondary'>300 pts: 15% de descuento <button class='btn btn-sm btn-success float-end' onclick='canjear(300,15)'>Canjear</button></li>
+                    <li class='list-group-item bg-dark text-white border-secondary'>600 pts: Producto sorpresa <button class='btn btn-sm btn-success float-end' onclick='canjear(600,0)'>Canjear</button></li>
+                </ul>
+                <div id='canjeMsg'></div>
+            `;
         }
+        // Formulario de perfil (preferencias, etc)
+        const form = document.getElementById('perfilForm');
+        const msg = document.getElementById('perfilMsg');
+        if(user) {
+            if(user.nombre) document.getElementById('nombrePerfil').value = user.nombre;
+            if(user.apellido) document.getElementById('apellidoPerfil').value = user.apellido || '';
+            if(user.correo) document.getElementById('correoPerfil').value = user.correo;
+            if(user.nacimiento) document.getElementById('nacimientoPerfil').value = user.nacimiento;
+            if(user.telefono) document.getElementById('telefonoPerfil').value = user.telefono || '';
+        }
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if(!user) return;
+            user.nombre = document.getElementById('nombrePerfil').value.trim();
+            user.apellido = document.getElementById('apellidoPerfil').value.trim();
+            user.correo = document.getElementById('correoPerfil').value.trim();
+            user.nacimiento = document.getElementById('nacimientoPerfil').value;
+            user.telefono = document.getElementById('telefonoPerfil').value.trim();
+            // Preferencias y ofertas (opcional)
+            user.preferencias = Array.from(document.getElementById('preferenciasPerfil').selectedOptions).map(opt=>opt.value);
+            user.ofertas = document.getElementById('ofertasPerfil').checked;
+            setTimeout(()=>{msg.innerHTML = '<div class="alert alert-success">¡Perfil actualizado correctamente!</div>';}, 100);
+            localStorage.setItem('usuariosLevelUp', JSON.stringify(usuarios));
+        });
+    });
+    // Canje de puntos (simulado)
+    function canjear(pts, desc) {
+        const email = localStorage.getItem('usuarioActivoLevelUp');
+        const usuarios = JSON.parse(localStorage.getItem('usuariosLevelUp') || '[]');
+        const user = usuarios.find(u => u.correo === email);
+        if(!user) return;
+        if((user.puntos||0) < pts) {
+            document.getElementById('canjeMsg').innerHTML = '<div class="alert alert-danger">No tienes suficientes puntos.</div>';
+            return;
+        }
+        user.puntos -= pts;
+        user.nivel = calcularNivel(user.puntos);
+        localStorage.setItem('usuariosLevelUp', JSON.stringify(usuarios));
+        document.getElementById('canjeMsg').innerHTML = `<div class='alert alert-success'>¡Canje exitoso! ${desc > 0 ? desc + '% de descuento aplicado.' : '¡Reclama tu producto sorpresa en tienda!'}</div>`;
+        setTimeout(()=>window.location.reload(), 1200);
+    }
     </script>
 </body>
 </html>
