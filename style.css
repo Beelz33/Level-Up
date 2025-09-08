@@ -1,3 +1,29 @@
+:root {
+  --color-azul-oscuro: #1A237E;
+  --color-azul-medio: #3949AB;
+  --color-azul-claro: #E3E7F1;
+  --color-blanco: #FFFFFF;
+  --color-gris-claro: #F5F5F5;
+  --color-gris-oscuro: #212121;
+  --color-verde: #43A047;
+  --color-rojo: #D32F2F;
+  --color-amarillo: #FFD600;
+}
+
+body {
+  background-color: var(--color-gris-claro);
+  color: var(--color-azul-oscuro);
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .logo, .card-title {
+  color: var(--color-azul-oscuro);
+}
+
+p, .card-text, .producto-tarjeta p {
+  color: var(--color-gris-oscuro);
+}
+
 /* Carrito de compras */
 .table-dark th, .table-dark td {
     vertical-align: middle;
@@ -170,4 +196,84 @@ body {
 .product-image {
     height: 200px;
     object-fit: cover;
+}
+
+body {
+  background-color: var(--color-gris-claro);
+  color: var(--color-azul-oscuro);
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+header, .navbar {
+  background-color: var(--color-azul-oscuro) !important;
+}
+
+.navbar .navbar-brand.logo {
+  color: var(--color-amarillo) !important;
+  font-family: 'Orbitron', Arial, sans-serif;
+}
+
+.navbar-nav .nav-link,
+.navbar-nav .btn {
+  color: var(--color-blanco) !important;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
+  color: var(--color-amarillo) !important;
+}
+
+.btn-success, .btn-outline-success, .btn-primary, .btn, .btn-lg {
+  background-color: var(--color-azul-medio) !important;
+  border-color: var(--color-azul-medio) !important;
+  color: var(--color-blanco) !important;
+  font-weight: bold;
+}
+
+.btn-success:hover, .btn-outline-success:hover, .btn-primary:hover, .btn:hover, .btn-lg:hover {
+  background-color: var(--color-azul-oscuro) !important;
+  border-color: var(--color-azul-oscuro) !important;
+  color: var(--color-amarillo) !important;
+}
+
+.btn-outline-primary {
+  color: var(--color-azul-medio) !important;
+  border-color: var(--color-azul-medio) !important;
+  background-color: var(--color-blanco) !important;
+  font-weight: bold;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--color-azul-medio) !important;
+  color: var(--color-amarillo) !important;
+}
+
+.btn-outline-secondary {
+  color: var(--color-rojo) !important;
+  border-color: var(--color-rojo) !important;
+  background-color: var(--color-blanco) !important;
+  font-weight: bold;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--color-rojo) !important;
+  color: var(--color-blanco) !important;
+}
+
+footer, .bg-dark {
+  background-color: var(--color-azul-oscuro) !important;
+  color: var(--color-amarillo) !important;
+}
+
+.producto-tarjeta, .card {
+  background-color: var(--color-azul-claro);
+  color: var(--color-azul-oscuro);
+  border: 1px solid var(--color-azul-medio);
+}
+
+.producto-tarjeta h5, .card-title {
+  color: var(--color-azul-oscuro) !important;
+}
+
+.producto-tarjeta p, .card-text {
+  color: var(--color-azul-oscuro) !important;
 }
