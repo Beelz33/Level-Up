@@ -1,0 +1,49 @@
+body {
+    background-color: #000000;
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    color: #39FF14;
+}
+
+.btn-primary {
+    background-color: #1E90FF;
+    border-color: #1E90FF;
+}
+
+.btn-success {
+    background-color: #39FF14;
+    border-color: #39FF14;
+    color: #000;
+}
+
+.card {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+}
+
+.navbar {
+    background-color: #111;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.category-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.product-image {
+    height: 200px;
+    object-fit: cover;
+}
