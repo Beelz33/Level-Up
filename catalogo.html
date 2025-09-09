@@ -34,7 +34,7 @@
         <h1 class="text-center mb-4">Catálogo de Productos</h1>
         
         <div class="card p-3 mb-4">
-            <h4 style="text-align: center; color: white;">Búsqueda de Productos</h4>
+            <h4 style="text-align: center; color: black;">Búsqueda de Productos</h4>
             <div class="row">
                 <div class="col-md-6 mb-2">
                     <input type="text" id="searchInput" class="form-control" placeholder="Buscar producto..." onkeyup="filterProducts()">
@@ -72,11 +72,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="polerones" data-price="24990" data-name="poleron gamer personalizado">
                 <div class="card h-100 text-white">
                     <span class="badge bg-info category-badge">Polerón</span>
-                    <img src="https://via.placeholder.com/300x200/222/39FF14?text=Polerón+Gamer" class="card-img-top product-image" alt="Polerón Gamer" id="img-poleron">
+                    <img src="https://via.placeholder.com/300x200/222/39FF14?text=Polerón+Gamer" class="card-img-top product-image" alt="Polerón Gamer" id="img-poleron" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>Polerón Gamer Personalizado</h5>
                         <p class="text-success">$24.990 CLP</p>
-                        <p class="small text-light">Polerón personalizable con tu nombre o diseño favorito. (Agrega tu imagen aquí)</p>
+                        <p class="small product-description">Polerón personalizable con tu nombre o diseño favorito. (Agrega tu imagen aquí)</p>
                         <button class="btn btn-primary agregar-carrito">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
@@ -89,11 +89,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="servicio" data-price="0" data-name="servicio tecnico">
                 <div class="card h-100 text-white">
                     <span class="badge bg-dark category-badge">Servicio Técnico</span>
-                    <img src="https://via.placeholder.com/300x200/222/1E90FF?text=Servicio+Técnico" class="card-img-top product-image" alt="Servicio Técnico">
+                    <img src="https://via.placeholder.com/300x200/222/1E90FF?text=Servicio+Técnico" class="card-img-top product-image" alt="Servicio Técnico" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>Servicio Técnico Gamer</h5>
                         <p class="text-success">Desde $9.990 CLP</p>
-                        <p class="small text-light">Reparación y mantención de consolas, PCs y accesorios gamers.</p>
+                        <p class="small product-description">Reparación y mantención de consolas, PCs y accesorios gamers.</p>
                         <button class="btn btn-primary">Solicitar servicio</button>
                     </div>
                 </div>
@@ -104,11 +104,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="juegos-mesa" data-price="29990" data-name="catan">
                 <div class="card h-100 text-white">
                     <span class="badge bg-info category-badge">Juego de Mesa</span>
-                    <img src="https://via.placeholder.com/300x200/222/39FF14?text=Catan" class="card-img-top product-image" alt="Catan">
+                    <img src="img/Catan.png" class="card-img-top product-image" alt="Catan" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>Catan</h5>
                         <p class="text-success">$29.990 CLP</p>
-                        <p class="small text-light">Juego de estrategia para 3-4 jugadores. Perfecto para noches de juego.</p>
+                        <p class="small product-description">Juego de estrategia para 3-4 jugadores. Perfecto para noches de juego.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
@@ -121,11 +121,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="juegos-mesa" data-price="24990" data-name="carcassonne">
                 <div class="card h-100 text-white">
                     <span class="badge bg-info category-badge">Juego de Mesa</span>
-                    <img src="https://via.placeholder.com/300x200/222/1E90FF?text=Carcassonne" class="card-img-top product-image" alt="Carcassonne">
+                    <img src="https://www.nicepng.com/png/detail/80-801695_carcassonne-board-game.png" class="card-img-top product-image" alt="Carcassonne" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>Carcassonne</h5>
                         <p class="text-success">$24.990 CLP</p>
-                        <p class="small text-light">Juego de colocación de fichas para 2-5 jugadores. Fácil de aprender.</p>
+                        <p class="small product-description">Juego de colocación de fichas para 2-5 jugadores. Fácil de aprender.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
@@ -138,11 +138,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="accesorios" data-price="59990" data-name="controlador xbox">
                 <div class="card h-100 text-white">
                     <span class="badge bg-warning category-badge">Accesorio</span>
-                    <img src="https://via.placeholder.com/300x200/222/FFFFFF?text=Control+Xbox" class="card-img-top product-image" alt="Control Xbox">
+                    <img src="https://xboxwire.thesourcemediaassets.com/sites/4/Deadpool-Double_Controller-DP_16x9-FINAL-91c067ffa6e5f5a587c4-1536x864-1-656d3fd505fc5c52b10e.jpg" class="card-img-top product-image" alt="Control Xbox" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>Controlador Xbox Series X</h5>
                         <p class="text-success">$59.990 CLP</p>
-                        <p class="small text-light">Inalámbrico con botones mapeables y respuesta táctil mejorada.</p>
+                        <p class="small product-description">Inalámbrico con botones mapeables y respuesta táctil mejorada.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
@@ -155,11 +155,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="accesorios" data-price="79990" data-name="auriculares hyperx">
                 <div class="card h-100 text-white">
                     <span class="badge bg-warning category-badge">Accesorio</span>
-                    <img src="https://via.placeholder.com/300x200/222/39FF14?text=Auriculares+HyperX" class="card-img-top product-image" alt="Auriculares HyperX">
+                    <img src="https://media.spdigital.cl/thumbnails/products/udp7nf1c_a20fef83_thumbnail_512.jpg" class="card-img-top product-image" alt="Auriculares HyperX" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>Auriculares HyperX Cloud II</h5>
                         <p class="text-success">$79.990 CLP</p>
-                        <p class="small text-light">Sonido envolvente 7.1 con micrófono desmontable.</p>
+                        <p class="small product-description">Sonido envolvente 7.1 con micrófono desmontable.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
@@ -172,11 +172,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="consolas" data-price="549990" data-name="playstation 5">
                 <div class="card h-100 text-white">
                     <span class="badge bg-danger category-badge">Consola</span>
-                    <img src="https://via.placeholder.com/300x200/222/1E90FF?text=PS5" class="card-img-top product-image" alt="PS5">
+                    <img src="https://clsonyb2c.vtexassets.com/arquivos/ids/463329-1600-auto?v=638436227763030000&width=1600&height=auto&aspect=true" class="card-img-top product-image" alt="PS5" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>PlayStation 5</h5>
                         <p class="text-success">$549.990 CLP</p>
-                        <p class="small text-light">Consola de última generación con gráficos impresionantes.</p>
+                        <p class="small product-description">Consola de última generación con gráficos impresionantes.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
@@ -189,11 +189,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="computadores" data-price="1299990" data-name="pc gamer asus">
                 <div class="card h-100 text-white">
                     <span class="badge bg-primary category-badge">PC Gamer</span>
-                    <img src="https://via.placeholder.com/300x200/222/FFFFFF?text=PC+ASUS+ROG" class="card-img-top product-image" alt="PC ASUS ROG">
+                    <img src="img/Rog Strix.png" class="card-img-top product-image" alt="PC ASUS ROG" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>PC Gamer ASUS ROG Strix</h5>
                         <p class="text-success">$1.299.990 CLP</p>
-                        <p class="small text-light">Potente equipo para gamers exigentes con los últimos componentes.</p>
+                        <p class="small product-description">Potente equipo para gamers exigentes con los últimos componentes.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
@@ -206,11 +206,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="sillas" data-price="349990" data-name="silla secretlab">
                 <div class="card h-100 text-white">
                     <span class="badge bg-success category-badge">Silla Gamer</span>
-                    <img src="https://via.placeholder.com/300x200/222/39FF14?text=Silla+SecretLab" class="card-img-top product-image" alt="Silla SecretLab">
+                    <img src="img/Silla secretLab titan.webp" class="card-img-top product-image" alt="Silla SecretLab" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>Silla Gamer SecretLab Titan</h5>
                         <p class="text-success">$349.990 CLP</p>
-                        <p class="small text-light">Diseñada para máximo confort con soporte ergonómico ajustable.</p>
+                        <p class="small product-description">Diseñada para máximo confort con soporte ergonómico ajustable.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
@@ -223,11 +223,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="mouse" data-price="49990" data-name="mouse logitech">
                 <div class="card h-100 text-white">
                     <span class="badge bg-secondary category-badge">Mouse</span>
-                    <img src="https://via.placeholder.com/300x200/222/1E90FF?text=Mouse+Logitech" class="card-img-top product-image" alt="Mouse Logitech">
+                    <img src="img/G502.png" class="card-img-top product-image" alt="Mouse Logitech" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>Mouse Logitech G502 HERO</h5>
                         <p class="text-success">$49.990 CLP</p>
-                        <p class="small text-light">Sensor de alta precisión con botones personalizables.</p>
+                        <p class="small product-description">Sensor de alta precisión con botones personalizables.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
@@ -240,11 +240,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="mousepad" data-price="29990" data-name="mousepad razer">
                 <div class="card h-100 text-white">
                     <span class="badge bg-secondary category-badge">Mousepad</span>
-                    <img src="https://via.placeholder.com/300x200/222/FFFFFF?text=Mousepad+Razer" class="card-img-top product-image" alt="Mousepad Razer">
+                    <img src="img/Mousepad goliathus extended .png" class="card-img-top product-image" alt="Mousepad Razer" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>Mousepad Razer Goliathus</h5>
                         <p class="text-success">$29.990 CLP</p>
-                        <p class="small text-light">Amplia superficie con iluminación RGB personalizable.</p>
+                        <p class="small product-description">Amplia superficie con iluminación RGB personalizable.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                     </div>
                 </div>
@@ -253,11 +253,11 @@
             <div class="col-md-4 mb-4 product-card" data-category="poleras" data-price="14990" data-name="polera level-up">
                 <div class="card h-100 text-white">
                     <span class="badge bg-info category-badge">Polera</span>
-                    <img src="https://via.placeholder.com/300x200/222/39FF14?text=Polera+Level-Up" class="card-img-top product-image" alt="Polera Level-Up">
+                    <img src="https://www.gustore.cl/img/estampados/8305/8305_4.png" class="card-img-top product-image" alt="Polera Level-Up" style="cursor:pointer;" onclick="goToProduct(this)">
                     <div class="card-body">
                         <h5>Polera Gamer Level-Up</h5>
                         <p class="text-success">$14.990 CLP</p>
-                        <p class="small text-light">Polera personalizable con tu gamer tag o diseño favorito.</p>
+                        <p class="small product-description">Polera personalizable con tu gamer tag o diseño favorito.</p>
                         <button class="btn btn-primary">Agregar al carrito</button>
                     </div>
                 </div>
@@ -267,103 +267,11 @@
 
     <div class="bg-dark text-light py-4 mt-5">
         <div class="container text-center">
-            <p>© 2023 Level-up Gamer - Todos los derechos reservados</p>
+            <p>© 2025 Level-up Gamer - Todos los derechos reservados</p>
         </div>
     </div>
-
-    <script>
-        function filterProducts() {
-            const searchText = document.getElementById('searchInput').value.toLowerCase();
-            const category = document.getElementById('categoryFilter').value;
-            const priceRange = document.getElementById('priceFilter').value;
-            const products = document.querySelectorAll('.product-card');
-            let visibleCount = 0;
-            products.forEach(product => {
-                const productName = product.getAttribute('data-name').toLowerCase();
-                const productCategory = product.getAttribute('data-category');
-                const productPrice = parseInt(product.getAttribute('data-price'));
-                const matchesSearch = productName.includes(searchText);
-                const matchesCategory = category === 'all' || productCategory === category;
-                let matchesPrice = true;
-                if (priceRange !== 'all') {
-                    if (priceRange === '0-30000') {
-                        matchesPrice = productPrice <= 30000;
-                    } else if (priceRange === '30000-100000') {
-                        matchesPrice = productPrice > 30000 && productPrice <= 100000;
-                    } else if (priceRange === '100000-500000') {
-                        matchesPrice = productPrice > 100000 && productPrice <= 500000;
-                    } else if (priceRange === '500000+') {
-                        matchesPrice = productPrice > 500000;
-                    }
-                }
-                if (matchesSearch && matchesCategory && matchesPrice) {
-                    product.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    product.classList.add('hidden');
-                }
-            });
-            const noResults = document.getElementById('noResults');
-            if (visibleCount === 0) {
-                noResults.classList.remove('hidden');
-            } else {
-                noResults.classList.add('hidden');
-            }
-        }
-        // Carrito: agregar producto y redirigir
-        function agregarAlCarrito(producto) {
-            let carrito = JSON.parse(localStorage.getItem('carritoLevelUp') || '[]');
-            const existente = carrito.find(p => p.name === producto.name);
-            if (existente) {
-                existente.qty += 1;
-            } else {
-                carrito.push({...producto, qty: 1});
-            }
-            localStorage.setItem('carritoLevelUp', JSON.stringify(carrito));
-            window.location.href = 'carrito.html';
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-            filterProducts();
-            document.querySelectorAll('.agregar-carrito').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    const card = btn.closest('.product-card');
-                    const producto = {
-                        name: card.querySelector('h5').innerText,
-                        price: parseInt(card.getAttribute('data-price')),
-                        category: card.getAttribute('data-category'),
-                        img: card.querySelector('img').src
-                    };
-                    agregarAlCarrito(producto);
-                });
-            });
-        });
-    </script>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const navUser = document.getElementById('nav-user-action');
-    const email = localStorage.getItem('usuarioActivoLevelUp');
-            if (navUser) {
-            if (email) {
-                navUser.innerHTML = `
-                    <a class="btn btn-outline-light me-2" href="perfil.html">Perfil</a>
-                    <button class="btn btn-danger me-2" id="logoutBtn">Cerrar sesión</button>
-                <a class="btn btn-success ms-2" href="logueo.html">Registro/Login</a>
-                `;
-                setTimeout(() => {
-                    const btn = document.getElementById('logoutBtn');
-                    if(btn) btn.onclick = function() {
-                        localStorage.removeItem('usuarioActivoLevelUp');
-                        window.location.reload();
-                    };
-                }, 100);
-            } else {
-                navUser.innerHTML = `<a class="btn btn-success ms-2" href="logueo.html">Login</a>`;
-            }
-        }
-});
-</script>
+
 </body>
 </html>

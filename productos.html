@@ -15,37 +15,49 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container mt-4" id="productoDetalle"></div>
+    <script src="producto_data.js"></script>
+    <script>
+    function getParam(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+    }
+    function renderProducto() {
+        const id = parseInt(getParam('id'));
+        const prod = productosLevelUp.find(p => p.id === id);
+        const cont = document.getElementById('productoDetalle');
+        if(!prod) {
+            cont.innerHTML = '<div class="alert alert-danger">Producto no encontrado</div>';
+            return;
+        }
+        cont.innerHTML = `
         <div class="row">
             <div class="col-md-6">
-                <img src="https://via.placeholder.com/500x400/222/39FF14?text=PlayStation+5" class="img-fluid rounded" alt="PlayStation 5">
+                <img src="${prod.img}" class="img-fluid rounded" alt="${prod.nombre}">
             </div>
-            
             <div class="col-md-6">
-                <h2>PlayStation 5</h2>
-                <p class="text-success fs-3">$549.990 CLP</p>
-                <p>La consola de última generación de Sony, que ofrece gráficos impresionantes y tiempos de carga ultrarrápidos para una experiencia de juego inmersiva.</p>
-                
+                <h2>${prod.nombre}</h2>
+                <p class="text-success fs-3">${prod.precioTexto}</p>
+                <p>${prod.descripcion}</p>
                 <div class="d-grid gap-2">
                     <button class="btn btn-success btn-lg">Agregar al carrito</button>
                     <button class="btn btn-outline-light">Seguir comprando</button>
                 </div>
             </div>
         </div>
-
         <div class="card mt-4">
             <div class="card-body">
                 <h4>Origen y Garantía</h4>
                 <div class="row">
                     <div class="col-md-6">
-                        <p><strong>Fabricante:</strong> Sony Interactive Entertainment</p>
-                        <p><strong>Procedencia:</strong> Japón</p>
-                        <p><strong>Distribuidor:</strong> Level-Up Gamer Chile</p>
+                        <p><strong>Fabricante:</strong> ${prod.fabricante}</p>
+                        <p><strong>Procedencia:</strong> ${prod.procedencia}</p>
+                        <p><strong>Distribuidor:</strong> ${prod.distribuidor}</p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Garantía:</strong> 12 meses</p>
-                        <p><strong>Autenticidad:</strong> Producto 100% original</p>
-                        <p><strong>Stock:</strong> Disponible en bodega nacional</p>
+                        <p><strong>Garantía:</strong> ${prod.garantia}</p>
+                        <p><strong>Autenticidad:</strong> ${prod.autenticidad}</p>
+                        <p><strong>Stock:</strong> ${prod.stock}</p>
                     </div>
                 </div>
                 <div class="alert alert-success mt-3">
@@ -53,7 +65,10 @@
                 </div>
             </div>
         </div>
-    </div>
+        `;
+    }
+    document.addEventListener('DOMContentLoaded', renderProducto);
+    </script>
 
     <div class="bg-dark text-light py-4 mt-5">
         <div class="container text-center">

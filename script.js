@@ -1,3 +1,127 @@
+// --- Control de menú de usuario en la barra de navegación ---
+document.addEventListener('DOMContentLoaded', function() {
+  const navUser = document.getElementById('nav-user-action');
+  const email = localStorage.getItem('usuarioActivoLevelUp');
+  if (navUser) {
+    if (email) {
+      navUser.innerHTML = `
+        <a class="btn btn-outline-light me-2" href="perfil.html">Perfil</a>
+        <button class="btn btn-danger me-2" id="logoutBtn">Cerrar sesión</button>
+        <a class="btn btn-success ms-2" href="logueo.html">Registro/Login</a>
+      `;
+      setTimeout(() => {
+        const btn = document.getElementById('logoutBtn');
+        if(btn) btn.onclick = function() {
+          localStorage.removeItem('usuarioActivoLevelUp');
+          window.location.reload();
+        };
+      }, 100);
+    } else {
+      navUser.innerHTML = `<a class="btn btn-success ms-2" href="logueo.html">Login</a>`;
+    }
+  }
+});
+// --- Catálogo: filtro y carrito ---
+function filterProducts() {
+  const searchText = document.getElementById('searchInput').value.toLowerCase();
+  const category = document.getElementById('categoryFilter').value;
+  const priceRange = document.getElementById('priceFilter').value;
+  const products = document.querySelectorAll('.product-card');
+  let visibleCount = 0;
+  products.forEach(product => {
+    const productName = product.getAttribute('data-name').toLowerCase();
+    const productCategory = product.getAttribute('data-category');
+    const productPrice = parseInt(product.getAttribute('data-price'));
+    const matchesSearch = productName.includes(searchText);
+    const matchesCategory = category === 'all' || productCategory === category;
+    let matchesPrice = true;
+    if (priceRange !== 'all') {
+      if (priceRange === '0-30000') {
+        matchesPrice = productPrice <= 30000;
+      } else if (priceRange === '30000-100000') {
+        matchesPrice = productPrice > 30000 && productPrice <= 100000;
+      } else if (priceRange === '100000-500000') {
+        matchesPrice = productPrice > 100000 && productPrice <= 500000;
+      } else if (priceRange === '500000+') {
+        matchesPrice = productPrice > 500000;
+      }
+    }
+    if (matchesSearch && matchesCategory && matchesPrice) {
+      product.classList.remove('hidden');
+      visibleCount++;
+    } else {
+      product.classList.add('hidden');
+    }
+  });
+  const noResults = document.getElementById('noResults');
+  if (noResults) {
+    if (visibleCount === 0) {
+      noResults.classList.remove('hidden');
+    } else {
+      noResults.classList.add('hidden');
+    }
+  }
+}
+
+function agregarAlCarrito(producto) {
+  let carrito = JSON.parse(localStorage.getItem('carritoLevelUp') || '[]');
+  const existente = carrito.find(p => p.name === producto.name);
+  if (existente) {
+    existente.qty += 1;
+  } else {
+    carrito.push({...producto, qty: 1});
+  }
+  localStorage.setItem('carritoLevelUp', JSON.stringify(carrito));
+  window.location.href = 'carrito.html';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (document.getElementById('productsContainer')) {
+    filterProducts();
+    document.querySelectorAll('.agregar-carrito').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const card = btn.closest('.product-card');
+        const producto = {
+          name: card.querySelector('h5').innerText,
+          price: parseInt(card.getAttribute('data-price')),
+          category: card.getAttribute('data-category'),
+          img: card.querySelector('img').src
+        };
+        agregarAlCarrito(producto);
+      });
+    });
+  }
+});
+// --- Navegación a detalle de producto desde catálogo ---
+function goToProduct(img) {
+  const card = img.closest('.product-card');
+  const name = card.getAttribute('data-name').toLowerCase();
+  // Si existe productosLevelUp, buscar el id por nombre
+  if (typeof productosLevelUp !== 'undefined') {
+    const prod = productosLevelUp.find(p => p.nombre.toLowerCase() === name);
+    if (prod) {
+      window.location.href = `productos.html?id=${prod.id}`;
+      return;
+    }
+  }
+  // Fallback: mapeo manual si no existe productosLevelUp
+  let id = 1;
+  switch(name) {
+    case 'poleron gamer personalizado': id=10; break;
+    case 'servicio tecnico': id=11; break;
+    case 'catan': id=1; break;
+    case 'carcassonne': id=2; break;
+    case 'controlador xbox': id=3; break;
+    case 'auriculares hyperx': id=4; break;
+    case 'playstation 5': id=5; break;
+    case 'pc gamer asus': id=6; break;
+    case 'silla secretlab': id=7; break;
+    case 'mouse logitech': id=8; break;
+    case 'mousepad razer': id=9; break;
+    case 'polera level-up': id=12; break;
+  }
+  window.location.href = `productos.html?id=${id}`;
+}
 // --- Reseñas y Calificaciones ---
 function getReviews() {
   return JSON.parse(localStorage.getItem('levelupReviews') || '{}');
