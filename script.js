@@ -169,67 +169,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 // --- Registro de usuario ---
-document.addEventListener('DOMContentLoaded', function() {
-  const registroForm = document.getElementById('registroForm');
-  if (registroForm) {
-    registroForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const nombre = document.getElementById('nombre').value.trim();
-      const correo = document.getElementById('correo').value.trim().toLowerCase();
-      const password = document.getElementById('password').value;
-      let nacimiento = document.getElementById('nacimiento').value;
-      // Convertir fecha yyyy-mm-dd a dd/mm/yyyy
-      if (nacimiento && nacimiento.includes('-')) {
-        const [yyyy, mm, dd] = nacimiento.split('-');
-        nacimiento = `${dd}/${mm}/${yyyy}`;
-      }
-      const terminos = document.getElementById('terminos').checked;
-      const msg = document.getElementById('registroMsg');
-      // Validaciones básicas
-      if (!nombre || !correo || !password || !nacimiento) {
-        msg.textContent = 'Completa todos los campos.';
-        msg.classList.add('text-danger');
-        return;
-      }
-      if (!terminos) {
-        msg.textContent = 'Debes aceptar los términos y condiciones.';
-        msg.classList.add('text-danger');
-        return;
-      }
-      // Validación de email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(correo)) {
-        msg.textContent = 'Correo electrónico no válido.';
-        msg.classList.add('text-danger');
-        return;
-      }
-      // Validación de contraseña (mínimo 6 caracteres)
-      if (password.length < 6) {
-        msg.textContent = 'La contraseña debe tener al menos 6 caracteres.';
-        msg.classList.add('text-danger');
-        return;
-      }
-      // Verificar si el usuario ya existe
-      let usuarios = JSON.parse(localStorage.getItem('usuariosLevelUp') || '[]');
-      if (usuarios.some(u => u.correo === correo)) {
-        msg.textContent = 'Ya existe una cuenta con este correo.';
-        msg.classList.add('text-danger');
-        return;
-      }
-      // Guardar usuario
-      usuarios.push({ nombre, correo, password, nacimiento });
-      localStorage.setItem('usuariosLevelUp', JSON.stringify(usuarios));
-      // Iniciar sesión automáticamente
-      localStorage.setItem('usuarioActivoLevelUp', correo);
-      msg.textContent = '¡Registro exitoso! Redirigiendo...';
-      msg.classList.remove('text-danger');
-      msg.classList.add('text-success');
-      setTimeout(() => {
-        window.location.href = 'index.html';
-      }, 1200);
-    });
-  }
-});
 // --- Control de menú de usuario en la barra de navegación ---
 document.addEventListener('DOMContentLoaded', function() {
   const navUser = document.getElementById('nav-user-action');
@@ -451,9 +390,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const codigoReferido = document.getElementById('codigoReferido').value.trim().toUpperCase();
     const msg = document.getElementById('registroMsg');
     msg.innerHTML = '';
-    // Validar campos vacíos
+    // Validar campos vacíos (sin exigir código de referido)
     if(!nombre || !correo || !password || !nacimiento || !terminos) {
-      msg.innerHTML = '<div class="alert alert-danger">Completa todos los campos y acepta los términos.</div>';
+      msg.innerHTML = '<div class="alert alert-danger">Completa todos los campos obligatorios y acepta los términos.</div>';
       return;
     }
     // Validar edad
@@ -484,6 +423,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let refCode = generarCodigoRef();
     let nivel = 1;
     let refOk = false;
+    // Si hay código de referido, intenta validar; si no, ignora y permite registro
     if(codigoReferido) {
       const refUser = usuarios.find(u => u.codigoRef === codigoReferido);
       if(refUser) {
@@ -492,6 +432,7 @@ document.addEventListener('DOMContentLoaded', function() {
         refOk = true;
         nivel = calcularNivel(puntos);
       }
+      // Si no existe el referido, simplemente no suma puntos, pero no bloquea el registro
     }
     // Guardar usuario
     const nuevoUsuario = {nombre, correo, password, nacimiento, descuento, puntos, nivel, codigoRef: refCode};
@@ -501,8 +442,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let msgExtra = '';
     if(descuento) msgExtra += ' Como usuario Duoc tienes 20% de descuento de por vida.';
     if(refOk) msgExtra += ' ¡Felicitaciones! Tú y tu referido ganaron 100 puntos LevelUp.';
-    msg.innerHTML = '<div class="alert alert-success">¡Registro exitoso! Tu código de referido es <b>' + refCode + '</b>.' + msgExtra + '</div>';
+    msg.innerHTML = '<div class="alert alert-success">¡Registro exitoso! Redirigiendo a la tienda...</div>';
     form.reset();
+    setTimeout(function() {
+      window.location.href = 'index.html';
+    }, 1200);
   });
 });
 

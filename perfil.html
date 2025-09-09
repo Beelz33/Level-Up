@@ -127,4 +127,14 @@
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-center my-5">
+            <button id="cerrarSesionBtn" class="btn btn-danger btn-lg px-5 py-3 fw-bold fs-2 shadow" style="letter-spacing:2px;background-color:#dc3545;border-color:#dc3545;">CERRAR SESIÓN</button>
+        </div>
+    </div>
+    <script>
+    document.getElementById('cerrarSesionBtn').onclick = function() {
+        localStorage.removeItem('usuarioActivoLevelUp');
+        window.location.href = 'index.html';
+    };
+    </script>
 </html>

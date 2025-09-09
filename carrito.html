@@ -3,36 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras - Level-Up Gamer</title>
+    <title>Level-Up Gamer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand logo" href="index.html"><img src="https://fbi.cults3d.com/uploaders/24128271/illustration-file/2cfe7f9e-5cee-4494-9b63-4e025faf1039/Honeyview_Honeyview_0.png" alt="Logo" class="logo-img"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="catalogo.html">Productos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="comunidad.html">Comunidad</a></li>
-                        <li class="nav-item"><a class="nav-link" href="soporte.html">Soporte</a></li>
-                        <li class="nav-item position-relative" id="nav-cart-btn">
-                            <a class="nav-link" href="carrito.html">
-                                <i class="bi bi-cart3 fs-4"></i>
-                                <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.8rem;display:none;">0</span>
-                            </a>
-                        </li>
-                        <li class="nav-item" id="nav-login-btn"><a class="btn btn-success ms-2" href="logueo.html">Registro/Login</a></li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand logo" href="index.html"><img src="https://fbi.cults3d.com/uploaders/24128271/illustration-file/2cfe7f9e-5cee-4494-9b63-4e025faf1039/Honeyview_Honeyview_0.png" alt="Logo" class="logo-img"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalogo.html">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="comunidad.html">Comunidad</a></li>
+                    <li class="nav-item"><a class="nav-link" href="soporte.html">Soporte</a></li>
+                    <li class="nav-item"><a class="btn btn-success ms-2" href="logueo.html" id="nav-login-btn">Registro/Login</a></li>
+                    <li class="nav-item position-relative ms-2">
+                        <a class="nav-link" href="carrito.html">
+                            <i class="bi bi-cart3 fs-4"></i>
+                            <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.8em;">0</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+    <script>
+    // Muestra solo el perfil si el usuario está logueado
+    document.addEventListener('DOMContentLoaded', function() {
+        var loginBtn = document.getElementById('nav-login-btn');
+        var registroBtn = document.querySelector('.btn.btn-success.ms-2[href="logueo.html"]');
+        var user = localStorage.getItem('usuarioActivoLevelUp');
+        if (loginBtn) {
+            if (user) {
+                var nav = loginBtn.parentElement;
+                var userLi = document.createElement('li');
+                userLi.className = 'nav-item ms-2';
+                userLi.innerHTML = `<a class="nav-link text-info" href="perfil.html"><i class="bi bi-person-circle"></i> ${user}</a>`;
+                nav.replaceChild(userLi, loginBtn);
+                if (registroBtn) registroBtn.style.display = 'none';
+            } else {
+                loginBtn.style.display = '';
+                if (registroBtn) registroBtn.style.display = '';
+            }
+        }
+    });
+    </script>
 
     <main>
         <section class="container mt-4">
@@ -42,6 +63,9 @@
                 <a href="index.html" class="btn btn-outline-secondary">Ir al Inicio</a>
             </div>
             <div id="carritoContainer"></div>
+            <div class="d-flex justify-content-center my-4">
+                <button class="btn btn-success btn-lg px-5 py-3 fw-bold fs-2 shadow" style="letter-spacing:2px;">PAGAR</button>
+            </div>
         </section>
     </main>
 
