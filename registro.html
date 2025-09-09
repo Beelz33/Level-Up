@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand logo" href="index.html">Level-up Store</a>
+            <a class="navbar-brand logo" href="index.html"><img src="https://fbi.cults3d.com/uploaders/24128271/illustration-file/2cfe7f9e-5cee-4494-9b63-4e025faf1039/Honeyview_Honeyview_0.png" alt="Logo" class="logo-img"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,8 +21,33 @@
                     <li class="nav-item"><a class="nav-link" href="catalogo.html">Productos</a></li>
                     <li class="nav-item"><a class="nav-link" href="comunidad.html">Comunidad</a></li>
                     <li class="nav-item"><a class="nav-link" href="soporte.html">Soporte</a></li>
-                    <li class="nav-item" id="nav-user-action">
-                        <a class="btn btn-success ms-2" href="logueo.html">Registro/Login</a>
+                    <li class="nav-item"><a class="btn btn-success ms-2" href="logueo.html">Registro/Login</a></li>
+                    <li class="nav-item" id="nav-login-btn"><a class="btn btn-success ms-2" href="logueo.html">Registro/Login</a></li>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var loginBtn = document.getElementById('nav-login-btn');
+        var registroBtn = document.querySelector('.btn.btn-success.ms-2[href="logueo.html"]');
+        var user = localStorage.getItem('usuarioActivoLevelUp');
+        if (loginBtn) {
+            if (user) {
+                var nav = loginBtn.parentElement;
+                var userLi = document.createElement('li');
+                userLi.className = 'nav-item ms-2';
+                userLi.innerHTML = `<a class=\"nav-link text-info\" href=\"perfil.html\"><i class=\"bi bi-person-circle\"></i> ${user}</a>`;
+                nav.replaceChild(userLi, loginBtn);
+                if (registroBtn) registroBtn.style.display = 'none';
+            } else {
+                loginBtn.style.display = '';
+                if (registroBtn) registroBtn.style.display = '';
+            }
+        }
+    });
+    </script>
+                    <li class="nav-item position-relative ms-2">
+                        <a class="nav-link" href="carrito.html">
+                            <i class="bi bi-cart3 fs-4"></i>
+                            <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.8em;">0</span>
+                        </a>
                     </li>
                 </ul>
             </div>

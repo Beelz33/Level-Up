@@ -1,3 +1,106 @@
+.perfil-card-warning {
+  background: var(--color-blanco) !important;
+  color: var(--color-azul-oscuro) !important;
+  border: 2px solid var(--color-amarillo) !important;
+}
+/* Estilos específicos para perfil.html */
+/* Inputs y selects del perfil con azul oscuro y acento verde */
+/* Unificación de colores de perfil con el resto del sitio */
+/* Colores de perfil igual que en index.html */
+.perfil-input {
+  background-color: #f5f5f5 !important;
+  color: var(--color-azul-oscuro) !important;
+  border: 1.5px solid var(--color-azul-medio) !important;
+  border-radius: 8px !important;
+  font-weight: 400;
+  font-size: 1.05em;
+  padding: 8px 12px !important;
+  margin-bottom: 10px;
+  box-shadow: none !important;
+}
+.perfil-historial-title {
+  color: var(--color-azul-oscuro);
+  letter-spacing: 1px;
+}
+.perfil-card {
+  background: var(--color-azul-claro) !important;
+  color: var(--color-azul-oscuro) !important;
+  border-radius: 12px !important;
+  border: 2px solid var(--color-azul-medio) !important;
+  box-shadow: none !important;
+  padding: 24px 24px 20px 24px !important;
+  width: 100%;
+  margin-bottom: 24px;
+  text-align: left;
+}
+.perfil-card h4, .perfil-card h5, .perfil-card h6 {
+  color: var(--color-azul-oscuro) !important;
+  font-weight: bold;
+}
+.perfil-card p, .perfil-card small, .perfil-card label, .perfil-card li, .perfil-card span {
+  color: var(--color-azul-oscuro) !important;
+}
+.perfil-card .btn, .perfil-card .btn-sm, .perfil-card .btn-success {
+  background: transparent !important;
+  color: var(--color-azul-medio) !important;
+  border: 1.5px solid var(--color-azul-medio) !important;
+  border-radius: 8px !important;
+  font-weight: 500;
+  box-shadow: none !important;
+  padding: 6px 18px !important;
+  margin-top: 8px;
+}
+.perfil-card .btn:hover, .perfil-card .btn:focus {
+  background: var(--color-azul-medio) !important;
+  color: var(--color-blanco) !important;
+}
+.perfil-card-info {
+  border-color: var(--color-azul-claro) !important;
+}
+.perfil-card-success {
+  border-color: var(--color-verde) !important;
+}
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(90deg, var(--color-azul-medio) 60%, var(--color-amarillo) 100%);
+  color: var(--color-azul-oscuro);
+  font-weight: bold;
+  border-radius: 24px;
+  padding: 8px 22px 8px 16px;
+  margin-bottom: 12px;
+  font-size: 1.15em;
+  box-shadow: 0 2px 8px rgba(26,35,126,0.08);
+  letter-spacing: 0.5px;
+  border: 2px solid var(--color-azul-medio);
+}
+.level-badge::before {
+  content: '\2605'; /* estrella */
+  color: var(--color-amarillo);
+  font-size: 1.2em;
+  margin-right: 8px;
+}
+.puntos-badge {
+  display: inline-block;
+  background: var(--color-azul-medio);
+  color: var(--color-blanco);
+  font-weight: bold;
+  border-radius: 16px;
+  padding: 4px 14px;
+  margin-left: 8px;
+  font-size: 1em;
+  vertical-align: middle;
+}
+.perfil-canjear-btn {
+  background: var(--color-azul-medio);
+  color: var(--color-blanco);
+  border: none;
+  font-weight: bold;
+}
+.perfil-canjear-btn:hover {
+  background: var(--color-azul-oscuro);
+  color: var(--color-amarillo);
+}
 /* Color personalizado para recomendaciones en index */
 .recomendaciones-title {
   color: var(--color-blanco) !important;
@@ -14,10 +117,10 @@
 }
 /* Logo navbar tamaño fijo */
 .logo-img {
-  max-height: 150px;
-  width: auto;
-  margin: 0 auto;
-  display: inline-flex;
+  max-height: 60px !important;
+  width: auto !important;
+  display: inline-block !important;
+  margin: 0 !important;
 }
 /* Cambia el color de las descripciones de productos en el catálogo */
 .product-description, .product-card .product-description, .card .product-description {

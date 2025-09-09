@@ -7,11 +7,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <!-- Estilos movidos a style.css -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand logo" href="index.html">Level-up Store</a>
+            <a class="navbar-brand logo" href="index.html"><img src="https://fbi.cults3d.com/uploaders/24128271/illustration-file/2cfe7f9e-5cee-4494-9b63-4e025faf1039/Honeyview_Honeyview_0.png" alt="Logo" class="logo-img"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,9 +22,38 @@
                     <li class="nav-item"><a class="nav-link" href="catalogo.html">Productos</a></li>
                     <li class="nav-item"><a class="nav-link" href="comunidad.html">Comunidad</a></li>
                     <li class="nav-item"><a class="nav-link" href="soporte.html">Soporte</a></li>
-                    <li class="nav-item" id="nav-user-action">
-                            <a class="btn btn-outline-light me-2" href="perfil.html">Perfil</a>
-                            <button class="btn btn-danger me-2" id="logoutBtn">Cerrar sesión</button>
+                    <li class="nav-item position-relative" id="nav-cart-btn">
+                        <a class="nav-link" href="carrito.html">
+                            <i class="bi bi-cart3 fs-4"></i>
+                            <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.8rem;display:none;">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="nav-login-btn"><a class="btn btn-success ms-2" href="logueo.html">Registro/Login</a></li>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var loginBtn = document.getElementById('nav-login-btn');
+        var registroBtn = document.querySelector('.btn.btn-success.ms-2[href="logueo.html"]');
+        var user = localStorage.getItem('usuarioActivoLevelUp');
+        if (loginBtn) {
+            if (user) {
+                var nav = loginBtn.parentElement;
+                var userLi = document.createElement('li');
+                userLi.className = 'nav-item ms-2';
+                userLi.innerHTML = `<a class=\"nav-link text-info\" href=\"perfil.html\"><i class=\"bi bi-person-circle\"></i> ${user}</a>`;
+                nav.replaceChild(userLi, loginBtn);
+                if (registroBtn) registroBtn.style.display = 'none';
+            } else {
+                loginBtn.style.display = '';
+                if (registroBtn) registroBtn.style.display = '';
+            }
+        }
+    });
+    </script>
+                    <li class="nav-item position-relative ms-2">
+                        <a class="nav-link" href="carrito.html">
+                            <i class="bi bi-cart3 fs-4"></i>
+                            <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.8em;">0</span>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -109,7 +139,7 @@
                         <h5>Catan</h5>
                         <p class="text-success">$29.990 CLP</p>
                         <p class="small product-description">Juego de estrategia para 3-4 jugadores. Perfecto para noches de juego.</p>
-                        <button class="btn btn-primary">Agregar al carrito</button>
+                        <button class="btn btn-primary agregar-carrito">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
                             <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
@@ -126,7 +156,7 @@
                         <h5>Carcassonne</h5>
                         <p class="text-success">$24.990 CLP</p>
                         <p class="small product-description">Juego de colocación de fichas para 2-5 jugadores. Fácil de aprender.</p>
-                        <button class="btn btn-primary">Agregar al carrito</button>
+                        <button class="btn btn-primary agregar-carrito">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
                             <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
@@ -143,7 +173,7 @@
                         <h5>Controlador Xbox Series X</h5>
                         <p class="text-success">$59.990 CLP</p>
                         <p class="small product-description">Inalámbrico con botones mapeables y respuesta táctil mejorada.</p>
-                        <button class="btn btn-primary">Agregar al carrito</button>
+                        <button class="btn btn-primary agregar-carrito">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
                             <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
@@ -160,7 +190,7 @@
                         <h5>Auriculares HyperX Cloud II</h5>
                         <p class="text-success">$79.990 CLP</p>
                         <p class="small product-description">Sonido envolvente 7.1 con micrófono desmontable.</p>
-                        <button class="btn btn-primary">Agregar al carrito</button>
+                        <button class="btn btn-primary agregar-carrito">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
                             <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
@@ -177,7 +207,7 @@
                         <h5>PlayStation 5</h5>
                         <p class="text-success">$549.990 CLP</p>
                         <p class="small product-description">Consola de última generación con gráficos impresionantes.</p>
-                        <button class="btn btn-primary">Agregar al carrito</button>
+                        <button class="btn btn-primary agregar-carrito">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
                             <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
@@ -194,7 +224,7 @@
                         <h5>PC Gamer ASUS ROG Strix</h5>
                         <p class="text-success">$1.299.990 CLP</p>
                         <p class="small product-description">Potente equipo para gamers exigentes con los últimos componentes.</p>
-                        <button class="btn btn-primary">Agregar al carrito</button>
+                        <button class="btn btn-primary agregar-carrito">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
                             <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>
@@ -211,7 +241,7 @@
                         <h5>Silla Gamer SecretLab Titan</h5>
                         <p class="text-success">$349.990 CLP</p>
                         <p class="small product-description">Diseñada para máximo confort con soporte ergonómico ajustable.</p>
-                        <button class="btn btn-primary">Agregar al carrito</button>
+                        <button class="btn btn-primary agregar-carrito">Agregar al carrito</button>
                         <div class="mt-3">
                             <div class="reviews-container"></div>
                             <button class="btn btn-outline-success btn-sm mt-2 leave-review-btn">Dejar reseña</button>

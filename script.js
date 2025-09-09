@@ -1,3 +1,235 @@
+// --- Lógica de perfil.html ---
+document.addEventListener('DOMContentLoaded', function() {
+  if (!window.location.pathname.endsWith('perfil.html')) return;
+  // Obtener usuario activo
+  const email = localStorage.getItem('usuarioActivoLevelUp');
+  const usuarios = JSON.parse(localStorage.getItem('usuariosLevelUp') || '[]');
+  const user = usuarios.find(u => u.correo === email);
+  // Mostrar resumen
+  if(user) {
+    const nivel = calcularNivel(user.puntos||0);
+    const puntos = user.puntos||0;
+    const nextLevel = [0,150,300,600,1000,2000][nivel] || 0;
+    const falta = nextLevel > puntos ? nextLevel - puntos : 0;
+    const porc = Math.min(100, Math.round((puntos/(nextLevel||1))*100));
+    document.getElementById('perfilResumen').innerHTML = `
+      <img src='https://via.placeholder.com/150/222222/39FF14?text=U' class='rounded-circle mx-auto mb-3' alt='Avatar'>
+      <h4>${user.nombre}</h4>
+      <p>${user.correo}</p>
+      <div class='level-badge mx-auto'>Nivel ${nivel} - ${nombreNivel(nivel)}</div>
+      <div class='mt-2 mb-2'>
+        <span>Puntos LevelUp:</span>
+        <span class='puntos-badge'>${puntos}</span>
+      </div>
+      <div class='progress mb-2'><div class='progress-bar bg-success' role='progressbar' style='width: ${porc}%' aria-valuenow='${porc}' aria-valuemin='0' aria-valuemax='100'></div></div>
+      <small>${falta > 0 ? falta + ' puntos para el siguiente nivel' : '¡Nivel máximo alcanzado!'}</small>
+    `;
+    // Si no hay código de referido, asignar uno
+    if (!user.codigoRef) {
+      user.codigoRef = 'LEVEL-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+      localStorage.setItem('usuariosLevelUp', JSON.stringify(usuarios));
+    }
+    document.getElementById('perfilReferido').innerHTML = `
+      <h5>Tu código de referido</h5>
+      <div class='input-group mb-2'>
+        <input type='text' class='form-control' value='${user.codigoRef}' readonly>
+        <button class='btn btn-outline-light' id='btnCopiarRef'>Copiar</button>
+      </div>
+      <small>Comparte este código con amigos y gana 100 puntos por cada referido.</small>
+    `;
+    document.getElementById('perfilCanje').innerHTML = `
+      <h5>Canjea tus puntos LevelUp</h5>
+      <div class='mb-2' style='font-size:1.08em;'>
+        <span>Tus puntos disponibles:</span>
+        <span class='puntos-badge'>${user.puntos||0}</span>
+      </div>
+      <ul class='list-group mb-2'>
+        <li class='list-group-item bg-transparent text-primary border-secondary'>
+          <span class='fw-bold'>100 pts</span>: 5% de descuento en tu próxima compra
+          <button class='btn btn-sm float-end' onclick='canjear(100,5)'>Canjear</button>
+        </li>
+        <li class='list-group-item bg-transparent text-primary border-secondary'>
+          <span class='fw-bold'>300 pts</span>: 15% de descuento
+          <button class='btn btn-sm float-end' onclick='canjear(300,15)'>Canjear</button>
+        </li>
+        <li class='list-group-item bg-transparent text-primary border-secondary'>
+          <span class='fw-bold'>600 pts</span>: Producto sorpresa
+          <button class='btn btn-sm float-end' onclick='canjear(600,0)'>Canjear</button>
+        </li>
+      </ul>
+      <div id='canjeMsg'></div>
+    `;
+    setTimeout(()=>{
+      const btn = document.getElementById('btnCopiarRef');
+      if(btn) btn.onclick = function() {
+        navigator.clipboard.writeText(user.codigoRef);
+        alert('Código copiado al portapapeles');
+      };
+    }, 100);
+  }
+  // Formulario de perfil (preferencias, etc)
+  const form = document.getElementById('perfilForm');
+  const msg = document.getElementById('perfilMsg');
+  if(user) {
+    if(user.nombre) document.getElementById('nombrePerfil').value = user.nombre;
+    if(user.apellido) document.getElementById('apellidoPerfil').value = user.apellido || '';
+    if(user.correo) document.getElementById('correoPerfil').value = user.correo;
+    // Mostrar fecha en formato yyyy-mm-dd para el input, pero guardar y mostrar en dd/mm/yyyy
+    if(user.nacimiento) {
+      let nac = user.nacimiento;
+      if (/^\d{2}\/\d{2}\/\d{4}$/.test(nac)) {
+        // Convertir dd/mm/yyyy a yyyy-mm-dd para el input
+        const [dd, mm, yyyy] = nac.split('/');
+        nac = `${yyyy}-${mm}-${dd}`;
+      }
+      document.getElementById('nacimientoPerfil').value = nac;
+    }
+    if(user.telefono) document.getElementById('telefonoPerfil').value = user.telefono || '';
+  }
+  if(form) form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if(!user) return;
+    user.nombre = document.getElementById('nombrePerfil').value.trim();
+    user.apellido = document.getElementById('apellidoPerfil').value.trim();
+    user.correo = document.getElementById('correoPerfil').value.trim();
+    // Guardar fecha en formato dd/mm/yyyy
+    let nac = document.getElementById('nacimientoPerfil').value;
+    if (nac && nac.includes('-')) {
+      const [yyyy, mm, dd] = nac.split('-');
+      nac = `${dd}/${mm}/${yyyy}`;
+    }
+    user.nacimiento = nac;
+    user.telefono = document.getElementById('telefonoPerfil').value.trim();
+    // Preferencias y ofertas (opcional)
+    user.preferencias = Array.from(document.getElementById('preferenciasPerfil').selectedOptions).map(opt=>opt.value);
+    // user.ofertas = document.getElementById('ofertasPerfil').checked; // Si se usa checkbox
+    setTimeout(()=>{msg.innerHTML = '<div class="alert alert-success">¡Perfil actualizado correctamente!</div>';}, 100);
+    localStorage.setItem('usuariosLevelUp', JSON.stringify(usuarios));
+  });
+});
+
+// Canje de puntos (simulado) para perfil.html
+function canjear(pts, desc) {
+  const email = localStorage.getItem('usuarioActivoLevelUp');
+  const usuarios = JSON.parse(localStorage.getItem('usuariosLevelUp') || '[]');
+  const user = usuarios.find(u => u.correo === email);
+  if(!user) return;
+  if((user.puntos||0) < pts) {
+    document.getElementById('canjeMsg').innerHTML = '<div class="alert alert-danger">No tienes suficientes puntos.</div>';
+    return;
+  }
+  user.puntos -= pts;
+  user.nivel = calcularNivel(user.puntos);
+  localStorage.setItem('usuariosLevelUp', JSON.stringify(usuarios));
+  document.getElementById('canjeMsg').innerHTML = `<div class='alert alert-success'>¡Canje exitoso! ${desc > 0 ? desc + '% de descuento aplicado.' : '¡Reclama tu producto sorpresa en tienda!'}</div>`;
+  setTimeout(()=>window.location.reload(), 1200);
+}
+
+function nombreNivel(nivel) {
+  return ['Beginner','Bronze','Explorer','Silver','Gold','Platinum'][nivel] || 'Beginner';
+}
+// --- Login de usuario ---
+document.addEventListener('DOMContentLoaded', function() {
+  const loginForm = document.querySelector('form');
+  if (loginForm && window.location.pathname.includes('logueo.html')) {
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const correo = loginForm.querySelector('input[type="email"]').value.trim().toLowerCase();
+      const password = loginForm.querySelector('input[type="password"]').value;
+      let usuarios = JSON.parse(localStorage.getItem('usuariosLevelUp') || '[]');
+      const msg = document.getElementById('loginMsg') || (() => {
+        const p = document.createElement('div');
+        p.id = 'loginMsg';
+        p.className = 'mt-2 text-center';
+        loginForm.parentNode.appendChild(p);
+        return p;
+      })();
+      const user = usuarios.find(u => u.correo === correo);
+      if (!user) {
+        msg.textContent = 'El correo no está registrado. Por favor, crea una cuenta.';
+        msg.classList.add('text-danger');
+        msg.classList.remove('text-success');
+        return;
+      }
+      if (user.password !== password) {
+        msg.textContent = 'Contraseña incorrecta.';
+        msg.classList.add('text-danger');
+        msg.classList.remove('text-success');
+        return;
+      }
+      // Login exitoso
+      localStorage.setItem('usuarioActivoLevelUp', correo);
+      msg.textContent = '¡Bienvenido! Redirigiendo...';
+      msg.classList.remove('text-danger');
+      msg.classList.add('text-success');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1200);
+    });
+  }
+});
+// --- Registro de usuario ---
+document.addEventListener('DOMContentLoaded', function() {
+  const registroForm = document.getElementById('registroForm');
+  if (registroForm) {
+    registroForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value.trim();
+      const correo = document.getElementById('correo').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+      let nacimiento = document.getElementById('nacimiento').value;
+      // Convertir fecha yyyy-mm-dd a dd/mm/yyyy
+      if (nacimiento && nacimiento.includes('-')) {
+        const [yyyy, mm, dd] = nacimiento.split('-');
+        nacimiento = `${dd}/${mm}/${yyyy}`;
+      }
+      const terminos = document.getElementById('terminos').checked;
+      const msg = document.getElementById('registroMsg');
+      // Validaciones básicas
+      if (!nombre || !correo || !password || !nacimiento) {
+        msg.textContent = 'Completa todos los campos.';
+        msg.classList.add('text-danger');
+        return;
+      }
+      if (!terminos) {
+        msg.textContent = 'Debes aceptar los términos y condiciones.';
+        msg.classList.add('text-danger');
+        return;
+      }
+      // Validación de email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(correo)) {
+        msg.textContent = 'Correo electrónico no válido.';
+        msg.classList.add('text-danger');
+        return;
+      }
+      // Validación de contraseña (mínimo 6 caracteres)
+      if (password.length < 6) {
+        msg.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+        msg.classList.add('text-danger');
+        return;
+      }
+      // Verificar si el usuario ya existe
+      let usuarios = JSON.parse(localStorage.getItem('usuariosLevelUp') || '[]');
+      if (usuarios.some(u => u.correo === correo)) {
+        msg.textContent = 'Ya existe una cuenta con este correo.';
+        msg.classList.add('text-danger');
+        return;
+      }
+      // Guardar usuario
+      usuarios.push({ nombre, correo, password, nacimiento });
+      localStorage.setItem('usuariosLevelUp', JSON.stringify(usuarios));
+      // Iniciar sesión automáticamente
+      localStorage.setItem('usuarioActivoLevelUp', correo);
+      msg.textContent = '¡Registro exitoso! Redirigiendo...';
+      msg.classList.remove('text-danger');
+      msg.classList.add('text-success');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1200);
+    });
+  }
+});
 // --- Control de menú de usuario en la barra de navegación ---
 document.addEventListener('DOMContentLoaded', function() {
   const navUser = document.getElementById('nav-user-action');
